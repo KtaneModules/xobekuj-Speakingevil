@@ -1,1 +1,1 @@
-# xobekuj
+#[ModKit Wiki](../../wiki)
