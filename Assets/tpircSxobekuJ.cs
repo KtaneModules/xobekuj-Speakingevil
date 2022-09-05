@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class tpircSxobekuJ : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class tpircSxobekuJ : MonoBehaviour {
     public TextMesh[] displays;
     public AudioClip[] samples;
 
-    private readonly string[] titles = new string[100] { "Gimme Gimme Gimme", "Take On Me", "Barbie Girl", "Do I Wanna Know", "Stayin' Alive", "We Didn't Start The Fire", "Heart Of Glass", "The Bad Touch", "Girls And Boys", "Can We Fix It?", "Rasputin", "It's My Life", "Baby I'm Yours", "Safe And Sound", "Believe", "Gangsta's Paradise", "Don't Dream It's Over", "Get Lucky", "You Spin Me Round", "Enjoy The Silence", "Bonkers", "X Gon' Give It To Ya", "What A Fool Believes", "Through The Fire And Flames", "September", "Castle On The Hill", "Blue", "Mr Blue Sky", "Crocodile Rock", "Godzilla", "There Must Be An Angel", "Bring Me Back To Life", "Best Of You", "Pumped Up Kicks", "Take Me Out", "I Will Survive", "Clint Eastwood", "Somebody That I Used To Know", "Jump Around", "Hit Me With Your Rhythm Stick", "Virtual Insanity", "Take Me Home, Country Roads", "SexyBack", "Ruby", "Wuthering Heights", "Nightcall", "Earthquake", "Industry Baby", "In The End", "Party Rock Anthem", "Thrift Shop", "Baggy Trousers", "Davy's On The Road", "Uptown Funk", "Moves Like Jagger", "Down Under", "Little Dark Age", "Thriller", "Maniac", "Stolen Dance", "Uprising", "Welcome To The Black Parade", "Unwritten", "Blue Monday", "The Riddle", "Smells Like Teen Spirit", "The Dock Of The Bay", "Hey Ya", "Dragostea Din Tei", "Common People", "Space Jam", "Don't Stop Me Now", "Never Gonna Give You Up", "Livin' La Vida Loca", "Smooth", "Scatman's World", "All Star", "Tainted Love", "Black Hole Sun", "Eye Of The Tiger", "Ruler Of Everything", "The Less I Know The Better", "Everbody Wants To Rule The World", "Tribute", "Lonely Boy", "Friday I'm In Love", "I Believe In A Thing Called Love", "How To Sace A Life", "Goodbye Mr A", "Mr Brightside", "Pretty Fly", "Starboy", "Seven Nation Army", "Africa", "Ocean Man", "Hardware Store", "Teenage Dirtbag", "Play That Funky Music", "Wil Wild West", "Roundabout"};
+    private readonly string[] titles = new string[100] { "Gimme Gimme Gimme", "Take On Me", "Barbie Girl", "Do I Wanna Know", "Stayin' Alive", "We Didn't Start The Fire", "Heart Of Glass", "The Bad Touch", "Girls And Boys", "Can We Fix It?", "Rasputin", "It's My Life", "Baby I'm Yours", "Safe And Sound", "Believe", "Gangsta's Paradise", "Don't Dream It's Over", "Get Lucky", "You Spin Me Round", "Enjoy The Silence", "Bonkers", "X Gon' Give It To Ya", "What A Fool Believes", "Through The Fire And Flames", "September", "Castle On The Hill", "Blue", "Mr Blue Sky", "Crocodile Rock", "Godzilla", "There Must Be An Angel", "Bring Me Back To Life", "Best Of You", "Pumped Up Kicks", "Take Me Out", "I Will Survive", "Clint Eastwood", "Somebody That I Used To Know", "Jump Around", "Hit Me With Your Rhythm Stick", "Virtual Insanity", "Take Me Home, Country Roads", "SexyBack", "Ruby", "Wuthering Heights", "Nightcall", "Earthquake", "Industry Baby", "In The End", "Party Rock Anthem", "Thrift Shop", "Baggy Trousers", "Davy's On The Road", "Uptown Funk", "Moves Like Jagger", "Down Under", "Little Dark Age", "Thriller", "Maniac", "Stolen Dance", "Uprising", "Welcome To The Black Parade", "Unwritten", "Blue Monday", "The Riddle", "Smells Like Teen Spirit", "The Dock Of The Bay", "Hey Ya", "Dragostea Din Tei", "Common People", "Space Jam", "Don't Stop Me Now", "Never Gonna Give You Up", "Livin' La Vida Loca", "Smooth", "Scatman's World", "All Star", "Tainted Love", "Black Hole Sun", "Eye Of The Tiger", "Ruler Of Everything", "The Less I Know The Better", "Everbody Wants To Rule The World", "Tribute", "Lonely Boy", "Friday I'm In Love", "I Believe In A Thing Called Love", "How To Save A Life", "Goodbye Mr A", "Mr Brightside", "Pretty Fly", "Starboy", "Seven Nation Army", "Africa", "Ocean Man", "Hardware Store", "Teenage Dirtbag", "Play That Funky Music", "Wild Wild West", "Roundabout"};
     private readonly string[] lyrics = new string[100] {
         "Half past twelve And I'm watching the late show in my flat, all alone How I hate to spend the evening on my own Autumn winds Blowing outside the window as I look around the room And it makes me so depressed to see the gloom There's not a soul out there No one to hear my prayer",
         "We're talking away I don't know what I'm to say I'll say it anyway Today's another day to find you Shying away I'll be coming for your love, okay?",
@@ -139,17 +140,17 @@ public class tpircSxobekuJ : MonoBehaviour {
         foreach (GameObject k in keyobjs)
             k.SetActive(false);
         bgs[1].SetActive(false);
-        songselect = Random.Range(0, 100);        
+        songselect = UnityEngine.Random.Range(0, 100);        
         string[] songlyrics = Regex.Replace(lyrics[songselect].ToUpperInvariant(), "[^A-Z -]", "").Split(' ');
-        int lselect = Random.Range(0, songlyrics.Length - 2);
+        int lselect = UnityEngine.Random.Range(0, songlyrics.Length - 2);
         while (songlyrics[lselect + 1].Length < 3 || songlyrics[lselect + 1] == "THE")
-            lselect = Random.Range(0, songlyrics.Length - 2);
+            lselect = UnityEngine.Random.Range(0, songlyrics.Length - 2);
         choose = songlyrics.Skip(lselect).Take(3).ToArray();
         ciphkey = string.Join("", keyletters.Shuffle().ToArray());
         for (int i = 0; i < 3; i++)
         {
             displays[i].text = string.Join("", choose[i].Select(x => ciphkey[x - 'A'].ToString()).ToArray());
-            displays[i].fontSize = 300 - (7 * choose[i].Length);
+            displays[i].fontSize = 300 - (12 * choose[i].Length);
         }
         Debug.LogFormat("[xobekuJ ehT #{0}] {1} :era sciryl deyalpsid ehT", moduleID, new string(string.Join(", ", displays.Select(x => x.text).ToArray()).ToUpperInvariant().Reverse().ToArray()));
         Debug.LogFormat("[xobekuJ ehT #{0}] {1} si gnos detceles ehT", moduleID, new string(titles[songselect].Reverse().ToArray()));
@@ -320,5 +321,111 @@ public class tpircSxobekuJ : MonoBehaviour {
                     displays[i].text = string.Join("", choose[i].Select(k => ciphkey[k - 'A'].ToString()).ToArray());
             }
         }
+    }
+
+    //twitch plays
+    #pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"!{0} drocer [drocer eht sesserP] | !{0} <srettel> sserp [srettel deificeps eht htiw syek eht sesserP]";
+    #pragma warning restore 414
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+        if (Regex.IsMatch(command, @"^\s*drocer\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            if (state == 0 || state == 2 || state == 4)
+            {
+                yield return null;
+                record.OnInteract();
+            }
+            else
+                yield return "sendtochaterror !won thgir desserp eb tonnac drocer ehT";
+            yield break;
+        }
+        string[] keysLowered = keyletters.ToArray();
+        for (int i = 0; i < keysLowered.Length; i++)
+            keysLowered[i] = keysLowered[i].ToLowerInvariant();
+        string[] parameters = command.Reverse().Join("").ToLowerInvariant().Split(' ');
+        if (parameters[0].Equals("press"))
+        {
+            if (parameters.Length > 2)
+            {
+                yield return "sendtochaterror !sretemarap ynam ooT";
+                yield break;
+            }
+            else if (parameters.Length == 1)
+            {
+                yield return "sendtochaterror !retne ot hsiw uoy srettel eht yficeps esaelP";
+                yield break;
+            }
+            else
+            {
+                for (int i = 0; i < parameters[1].Length; i++)
+                {
+                    if (!keysLowered.Contains(parameters[1][i].ToString()))
+                    {
+                        yield return "sendtochaterror!f !rettel a ton si \"" + parameters[1][i] + "\"";
+                        yield break;
+                    }
+                }
+                if (state == 1 || state == 3)
+                {
+                    yield return "sendtochaterror !won thgir srettel yna retne tonnac uoY";
+                    yield break;
+                }
+                yield return null;
+                for (int i = 0; i < parameters[1].Length; i++)
+                {
+                    if (submission.Length == choose[1].Length)
+                        break;
+                    keys[Array.IndexOf(keysLowered, parameters[1][i].ToString())].OnInteract();
+                    yield return new WaitForSeconds(.1f);
+                }
+            }
+        }
+    }
+
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        while (true)
+        {
+            if (state % 2 == 0)
+            {
+                if (state == 4)
+                    break;
+                else
+                    record.OnInteract();
+            }
+            else
+                yield return true;
+        }
+        if (submission.Length == choose[1].Length && submission.ToUpperInvariant() != choose[1])
+        {
+            moduleSolved = true;
+            module.HandlePass();
+            yield break;
+        }
+        if (submission.Length != choose[1].Length)
+        {
+            string upperSub = submission.ToUpperInvariant();
+            for (int i = 0; i < upperSub.Length; i++)
+            {
+                if (upperSub[upperSub.Length - 1 - i] != choose[1][choose[1].Length - 1 - i])
+                {
+                    record.OnInteract();
+                    yield return new WaitForSeconds(.1f);
+                    break;
+                }
+            }
+        }
+        string[] upperKeys = keyletters.ToArray();
+        for (int i = 0; i < upperKeys.Length; i++)
+            upperKeys[i] = upperKeys[i].ToUpperInvariant();
+        string reversed = choose[1].Reverse().Join("");
+        int start = submission.Length;
+        for (int i = start; i < reversed.Length; i++)
+        {
+            keys[Array.IndexOf(upperKeys, reversed[i].ToString())].OnInteract();
+            yield return new WaitForSeconds(.1f);
+        }
+        record.OnInteract();
     }
 }
